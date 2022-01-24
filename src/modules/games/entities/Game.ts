@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Genre } from '../../genres/entities/Genre';
 
 import { User } from '../../users/entities/User';
 
@@ -19,6 +22,13 @@ export class Game {
 
   @ManyToMany(() => User, (user) => user.games)
   users: User[];
+
+  @ManyToOne(() => Genre)
+  @JoinColumn({ name: "genre_id" })
+  genre: Genre;
+
+  @Column()
+  genre_id: string;
 
   @CreateDateColumn()
   created_at: Date;
